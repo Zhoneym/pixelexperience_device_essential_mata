@@ -55,6 +55,11 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        vendor/bin/imsrcsd|\
+        vendor/lib64/lib-imsrcs-v2.so|\
+        vendor/lib64/lib-uceservice.so)
+            grep -q "libbase_shim.so" "${2}" || "${PATCHELF}" --add-needed "libbase_shim.so" "${2}"
+            ;;
         vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.mata.rc)
             sed -i 's/service fps_hal_mata/service vendor.fps_hal_mata/g' "${2}"
             ;;
@@ -65,6 +70,10 @@ function blob_fixup() {
             sed -i "s/\x58\x46\xeb\xf7\x1a\xee/\x00\x20\xeb\xf7\x1a\xee/" "${2}"
             sed -i "s/\x38\x46\xd9\xf7\x0e\xec/\x00\x20\xd9\xf7\x0e\xec/" "${2}"
             sed -i "s/\x20\x68\xd9\xf7\x08\xec/\x00\x20\xd9\xf7\x08\xec/" "${2}"
+            ;;
+        vendor/lib64/lib-imsdpl.so)
+            sed -i "s/\x50\xde\xff\x97/\x1f\x20\x03\xd5/" "${2}"
+            sed -i "s/\x5a\xde\xff\x97/\x1f\x20\x03\xd5/" "${2}"
             ;;
         recovery/root/vendor/bin/hbtp_daemon|\
         recovery/root/vendor/lib64/libhbtpclient.so|\
