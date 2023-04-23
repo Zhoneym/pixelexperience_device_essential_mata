@@ -686,7 +686,7 @@ service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
 service vendor.ims_rtp_daemon /vendor/bin/ims_rtp_daemon
     class main
     user system
-    group radio diag inet log
+    group radio vendor_qti_diag inet log oem_2901
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -694,7 +694,7 @@ service vendor.imsdatadaemon /vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
-    group system wifi radio inet log diag
+    group system wifi radio inet log vendor_qti_diag oem_2901
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -702,13 +702,13 @@ service vendor.imsqmidaemon /vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
-    group radio log diag
+    group radio log vendor_qti_diag oem_2901
     writepid /dev/cpuset/system-background/tasks
 
 service vendor.imsrcsservice /vendor/bin/imsrcsd
     class hal
     user system
-    group radio diag inet log
+    group radio vendor_qti_diag inet log oem_2901
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -738,7 +738,7 @@ service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
 service vendor.loc_launcher /vendor/bin/loc_launcher
     # loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps inet diag wifi
+    group gps inet vendor_qti_diag wifi oem_2901
     writepid /dev/cpuset/system-background/tasks
 
 service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /vendor/etc/msm_irqbalance.conf
@@ -801,7 +801,7 @@ service vendor.qseecomd /vendor/bin/qseecomd
 service vendor.qti /vendor/bin/qti
     class main
     user radio
-    group radio net_raw diag usb net_admin
+    group radio oem_2901 vendor_qti_diag usb net_admin
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -821,7 +821,7 @@ service vendor.sensors /vendor/bin/sensors.qcom
 service vendor.start_hci_filter /vendor/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth diag system wakelock
+    group bluetooth vendor_qti_diag system wakelock oem_2901
     disabled
     writepid /dev/cpuset/system-background/tasks
 
