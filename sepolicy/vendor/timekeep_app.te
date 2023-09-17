@@ -9,9 +9,13 @@ app_domain(timekeep_app)
 # Needed to get access to /data/data/com.sony.timekeep
 # Only getattr and search are requested since TimeKeep does not write to its own directory
 # /data/data/com.sony.timekeep only has two empty subdirs
-dontaudit timekeep_app app_data_file:dir { getattr search };
+allow timekeep_app system_data_file:dir { getattr search };
+allow timekeep_app user_profile_root_file:dir { getattr search };
 
 allow timekeep_app activity_service:service_manager find;
+dontaudit timekeep_app content_capture_service:service_manager find;
+dontaudit timekeep_app game_service:service_manager find;
+dontaudit timekeep_app netstats_service:service_manager find;
 
 # Read from /data/vendor/time/ats_2
 allow timekeep_app vendor_time_data_file:dir create_dir_perms;
